@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
@@ -10,42 +11,30 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
-            </svg>
+            <img src="{% static 'img/calabazas-ventas.jpg' %}" class="d-block w-100" style="max-height: 600px; object-fit: cover;" alt="Imagen de Calabaza">
             <div class="container">
                 <div class="carousel-caption text-start">
-                    <h1>Example headline.</h1>
-                    <p class="opacity-75">Some representative placeholder content for the first slide of the carousel.
-                    </p>
-                    <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+                    <h1>Calabazas en venta!</h1>
+                    <p class="opacity-75">Puedes realizar la compra Iniciando Sesión</p>
+                    <p><a class="btn btn-lg btn-primary" href="{% url 'login' %}">Inicia Sesión</a></p>
                 </div>
             </div>
         </div>
+        
         <div class="carousel-item">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
-            </svg>
+            <img src="{% static 'img/imagen-calabaza.jpg' %}" class="d-block w-100" style="max-height: 600px; object-fit: cover;" alt="Imagen de Calabaza">
             <div class="container">
                 <div class="carousel-caption">
-                    <h1>Another example headline.</h1>
-                    <p>Some representative placeholder content for the second slide of the carousel.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                    <h1>Esto puedes realizar tu!</h1>
                 </div>
             </div>
         </div>
         <div class="carousel-item">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
-            </svg>
+            <img src="{% static 'img/demostracion-calabazas.jpg' %}" class="d-block w-100" style="max-height: 600px; object-fit: cover;" alt="Imagen de Calabaza">
             <div class="container">
                 <div class="carousel-caption text-end">
-                    <h1>One more for good measure.</h1>
-                    <p>Some representative placeholder content for the third slide of this carousel.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+                    <h1>Uno mas para que pueda convencerte</h1>
+                    <p>Un ejemplo de lo que hicimos el año pasado</p>
                 </div>
             </div>
         </div>

@@ -1,6 +1,5 @@
 from django import forms
 from .models import Usuario
-from django.contrib.auth import authenticate
 
 class UsuarioForm(forms.ModelForm):
     contraseña = forms.CharField(
@@ -16,11 +15,14 @@ class UsuarioForm(forms.ModelForm):
 
     class Meta:
         model = Usuario
-        fields = ['nombre', 'apellido', 'email', 'telefono', 'direccion', 'contraseña']
+        fields = ['nombre', 'apellido', 'nombre_de_calle', 'numero_de_casa', 'email', 'fecha_nacimiento', 'telefono', 'direccion', 'contraseña']
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
             'apellido': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Apellido'}),
+            'nombre_de_calle': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre de Calle'}),
+            'numero_de_casa': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Número de Casa'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+            'fecha_nacimiento': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Fecha de Nacimiento', 'type': 'date'}),
             'telefono': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Teléfono'}),
             'direccion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Dirección'}),
         }
@@ -38,5 +40,9 @@ class UsuarioForm(forms.ModelForm):
 
         if contraseña and confirmar_contraseña and contraseña != confirmar_contraseña:
             raise forms.ValidationError("Las contraseñas no coinciden.")
+        
+        fecha_nacimiento = cleaned_data.get("fecha_nacimiento")
+        if fecha_nacimiento and fecha_nacimiento > timezone.now().date():
+            raise forms.ValidationError("La fecha de nacimiento no puede ser mayor a la fecha actual.")
         
         return cleaned_data
