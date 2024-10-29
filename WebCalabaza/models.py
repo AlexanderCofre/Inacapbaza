@@ -29,10 +29,10 @@ class Calabaza(models.Model):
     stock = models.IntegerField(default=0)
     peso = models.IntegerField(default=0) 
 
-class Venta(models.Model):
-    id = models.AutoField(primary_key=True)
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    calabaza = models.ForeignKey(Calabaza, on_delete=models.CASCADE)
-    cantidad = models.IntegerField()
-    fecha_venta = models.DateTimeField(auto_now_add=True)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
+# class Venta(models.Model):
+#     id = models.AutoField(primary_key=True)
+#     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+#     calabaza = models.ForeignKey(Calabaza, on_delete=models.CASCADE)
+#     cantidad = models.IntegerField()
+#     fecha_venta = models.DateTimeField(auto_now_add=True)
+#     total = models.DecimalField(max_digits=10, decimal_places=2)
