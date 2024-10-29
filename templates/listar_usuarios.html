@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center">
+    <h2 class="text-center">Lista de Usuarios</h2>
+    {% if messages %}
+    {% for message in messages %}
+    <p class="alert alert-info">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+    <ul class="list-unstyled">
+        {% for usuario in usuarios %}
+        <li class="mb-3"> <!-- Clase de Bootstrap para margen inferior -->
+            {{ usuario.id }} - {{ usuario.nombre }} {{ usuario.apellido }}
+            <a href="{% url 'editar_usuario' usuario.id %}" class="btn btn-warning">Editar</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% if messages %}
+<script>
+    // Mostrar confeti si hay un mensaje de éxito
+    document.addEventListener('DOMContentLoaded', function () {
+        {% for message in messages %}
+        {% if message.tags == 'success' %}
+        confetti({
+            particleCount: 300,
+            spread: 100,
+            origin: { y: 0.6 }
+        });
+        {% endif %}
+        {% endfor %}
+    });
+</script>
+{% endif %}
+{% endblock %}

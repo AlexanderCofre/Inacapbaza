@@ -13,14 +13,6 @@
         align-items: center;
         justify-content: center;
     }
-
-    .fondo-formulario {
-        background-color: rgba(255, 255, 255, 0.8);
-        padding: 50px;
-        border-radius: 8px;
-        max-width: 500px;
-        width: 100%;
-    }
 </style>
 {% endblock %}
 
@@ -41,14 +33,32 @@
                 </form>
                 <!-- Botón de eliminar -->
                 <div class="d-flex justify-content-center mt-2">
-                    <a href="{% url 'eliminar_calabaza' calabaza.id %}" class="btn btn-danger"
-                        onclick="return confirm('¿Estás seguro de que deseas eliminar esta calabaza?');">
+                    <button class="btn btn-danger" onclick="confirmarEliminacion({{ calabaza.id }});">
                         Eliminar Calabaza
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function confirmarEliminacion(calabazaId) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = `{% url 'eliminar_calabaza' 0 %}`.replace('0', calabazaId);
+            }
+        });
+    }
+</script>
 
 {% endblock %}
