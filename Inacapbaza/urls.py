@@ -26,5 +26,6 @@ urlpatterns = [
     path('logout/', views.usuario_logout, name='logout'),
     path('calabazas/', views.calabazas, name='calabazas'),
     path('cabalaza/crear', views.crear_calabaza, name='agregar-calabaza'),
-    path('calabaza/editar/<int:calabaza_id>/', views.editar_calabaza, name='editar-calabaza')
+    path('calabaza/editar/<int:calabaza_id>/', views.editar_calabaza, name='editar-calabaza'),
+    path('calabazas/eliminar/<int:calabaza_id>/', views.eliminar_calabaza, name='eliminar_calabaza'),
 ]
