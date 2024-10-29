@@ -1,0 +1,10 @@
+.fondo-formulario {
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Fondo blanco semi-transparente */
+    padding: 50px;
+    border-radius: 8px;
+    max-width: 500px;
+    /* Limita el ancho máximo del formulario */
+    width: 100%;
+    /* Ocupa todo el ancho disponible */
+}
