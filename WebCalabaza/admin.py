@@ -1,6 +1,6 @@
 # admin.py
 from django.contrib import admin
-from .models import Usuario, Calabaza, Venta
+from .models import Usuario, Calabaza
 
 @admin.register(Usuario)
 class UsuarioAdmin(admin.ModelAdmin):
@@ -28,15 +28,15 @@ class CalabazaAdmin(admin.ModelAdmin):
         }),
     )
 
-@admin.register(Venta)
-class VentaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'usuario', 'calabaza', 'cantidad', 'fecha_venta', 'total')
-    search_fields = ('usuario__nombre', 'calabaza__nombre')
-    list_filter = ('fecha_venta',)
-    ordering = ('id',)
-    readonly_fields = ('id', 'fecha_venta', 'total')
-    fieldsets = (
-        ('Detalles de la Venta', {
-            'fields': ('usuario', 'calabaza', 'cantidad', 'fecha_venta', 'total')
-        }),
-    )
+# @admin.register(Venta)
+# class VentaAdmin(admin.ModelAdmin):
+#     list_display = ('id', 'usuario', 'calabaza', 'cantidad', 'fecha_venta', 'total')
+#     search_fields = ('usuario__nombre', 'calabaza__nombre')
+#     list_filter = ('fecha_venta',)
+#     ordering = ('id',)
+#     readonly_fields = ('id', 'fecha_venta', 'total')
+#     fieldsets = (
+#         ('Detalles de la Venta', {
+#             'fields': ('usuario', 'calabaza', 'cantidad', 'fecha_venta', 'total')
+#         }),
+#     )
