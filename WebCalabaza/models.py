@@ -13,7 +13,6 @@ class Usuario(models.Model):
     email = models.EmailField(unique=True)
     fecha_nacimiento = models.DateField()
     telefono = models.CharField(max_length=15, blank=True, null=True)
-    direccion = models.CharField(max_length=100, blank=True, null=True)
     contraseña = models.CharField(max_length=15)
 
     def set_password(self, raw_password):
@@ -24,19 +23,13 @@ class Usuario(models.Model):
             self.set_password(self.contraseña)
         super().save(*args, **kwargs)
 
-    def clean(self):
-        super().clean()  # Llama a la validación de los campos por defecto
-        if self.fecha_nacimiento > timezone.now().date():
-            raise ValidationError("La fecha de nacimiento no puede ser mayor a la fecha actual.")
-
 class Calabaza(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField(blank=True, null=True)
-    precio = models.DecimalField(max_digits=5, decimal_places=2)
+    precio = models.IntegerField(default=1000)  
     stock = models.IntegerField(default=0)
-    peso = models.DecimalField(max_digits=2, decimal_places=2) 
-
+    peso = models.IntegerField(default=0) 
 
 class Venta(models.Model):
     id = models.AutoField(primary_key=True)

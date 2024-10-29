@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_styles %}
+<style>
+    /* Aplica el fondo a todo el contenedor de la vista */
+    .fondo-completo {
+        background-image: url('{% static "img/background-login.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; /* La imagen de fondo se queda fija al hacer scroll */
+        min-height: 100vh; /* Asegura que cubra toda la altura de la ventana */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .fondo-formulario {
+        background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
+        padding: 50px;
+        border-radius: 8px;
+        max-width: 500px;
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block title %}INACAPBAZA - Crear Calabaza{% endblock %}
+
+{% block content %}
+<div class="fondo-completo">
+    <div class="fondo-formulario">
+        <div class="container mt-5">
+            <h2 class="text-center">Agregar Calabaza</h2>
+            <div class="container mt-3">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="d-flex justify-content-center mt-4">
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

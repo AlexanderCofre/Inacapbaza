@@ -23,5 +23,8 @@ urlpatterns = [
     path('', views.index, name='inicio'),
     path('registro/', views.registro, name='registro'),
     path('login/', views.usuario_login, name='login'),
-    path('logout/', views.usuario_logout, name='logout')
+    path('logout/', views.usuario_logout, name='logout'),
+    path('calabazas/', views.calabazas, name='calabazas'),
+    path('cabalaza/crear', views.crear_calabaza, name='agregar-calabaza'),
+    path('calabaza/editar/<int:calabaza_id>/', views.editar_calabaza, name='editar-calabaza')
 ]

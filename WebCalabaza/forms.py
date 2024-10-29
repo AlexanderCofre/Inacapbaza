@@ -1,5 +1,6 @@
 from django import forms
-from .models import Usuario
+from django.utils import timezone
+from .models import Usuario, Calabaza
 
 class UsuarioForm(forms.ModelForm):
     contraseña = forms.CharField(
@@ -15,7 +16,7 @@ class UsuarioForm(forms.ModelForm):
 
     class Meta:
         model = Usuario
-        fields = ['nombre', 'apellido', 'nombre_de_calle', 'numero_de_casa', 'email', 'fecha_nacimiento', 'telefono', 'direccion', 'contraseña']
+        fields = ['nombre', 'apellido', 'nombre_de_calle', 'numero_de_casa', 'email', 'fecha_nacimiento', 'telefono', 'contraseña']
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
             'apellido': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Apellido'}),
@@ -24,7 +25,6 @@ class UsuarioForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
             'fecha_nacimiento': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Fecha de Nacimiento', 'type': 'date'}),
             'telefono': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Teléfono'}),
-            'direccion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Dirección'}),
         }
 
     def clean_contraseña(self):
@@ -46,3 +46,42 @@ class UsuarioForm(forms.ModelForm):
             raise forms.ValidationError("La fecha de nacimiento no puede ser mayor a la fecha actual.")
         
         return cleaned_data
+
+
+class CalabazaForm(forms.ModelForm):
+    class Meta:
+        model = Calabaza
+        fields = ['nombre', 'descripcion', 'precio', 'stock', 'peso']
+        
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre de la Calabaza'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Descripción', 'rows': 3}),
+            'precio': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Precio', 'min': '1'}),
+            'stock': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Stock Disponible'}),
+            'peso': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Peso en gramos'}),
+        }
+
+    def clean_precio(self):
+        precio = self.cleaned_data.get('precio')
+        if precio is not None:
+            if precio < 1000:
+                raise forms.ValidationError("El precio debe ser mayor o igual a 1000.")
+            if precio < 0:
+                raise forms.ValidationError("El precio no puede ser negativo.")
+        return precio
+
+    def clean_stock(self):
+        stock = self.cleaned_data.get('stock')
+        if stock is not None and stock < 0:
+            raise forms.ValidationError("El stock no puede ser negativo.")
+        return stock
+
+    def clean_peso(self):
+        peso = self.cleaned_data.get('peso')
+        if peso is not None:
+            if peso < 0:
+                raise forms.ValidationError("El peso no puede ser negativo.")
+            elif peso == 0:
+                raise forms.ValidationError("El peso debe ser mayor a 0.")
+        return peso
+

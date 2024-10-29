@@ -1,51 +1,42 @@
+# admin.py
 from django.contrib import admin
 from .models import Usuario, Calabaza, Venta
 
-# Configuración del modelo Usuario en el admin
 @admin.register(Usuario)
 class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre', 'apellido', 'email', 'telefono', 'direccion')
+    list_display = ('id', 'nombre', 'apellido', 'nombre_de_calle', 'numero_de_casa', 'email', 'fecha_nacimiento', 'telefono', 'contraseña')
     search_fields = ('nombre', 'apellido', 'email')
-    list_filter = ('nombre', 'apellido')
-    ordering = ('id',)  # Orden por ID
-    list_per_page = 20  # Paginación cada 20 usuarios
+    list_filter = ('fecha_nacimiento',)
+    ordering = ('id',)
+    readonly_fields = ('id',)
     fieldsets = (
-        ("Información Personal", {
-            'fields': ('nombre', 'apellido', 'email', 'telefono', 'direccion')
+        ('Información Personal', {
+            'fields': ('nombre', 'apellido', 'nombre_de_calle', 'numero_de_casa', 'email', 'fecha_nacimiento', 'telefono', 'contraseña')
         }),
     )
 
-
-# Configuración del modelo Calabaza en el admin
 @admin.register(Calabaza)
 class CalabazaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre', 'precio', 'stock')
+    list_display = ('id', 'nombre', 'descripcion', 'precio', 'stock', 'peso')
     search_fields = ('nombre',)
-    list_filter = ('precio',)
-    ordering = ('id',)  # Orden por ID
-    list_per_page = 20  # Paginación cada 20 calabazas
+    list_filter = ('precio', 'stock')
+    ordering = ('id',)
+    readonly_fields = ('id',)
     fieldsets = (
-        ("Información de la Calabaza", {
-            'fields': ('nombre', 'descripcion', 'precio', 'stock')
+        ('Detalles de la Calabaza', {
+            'fields': ('nombre', 'descripcion', 'precio', 'stock', 'peso')
         }),
     )
 
-
-# Configuración del modelo Venta en el admin
 @admin.register(Venta)
 class VentaAdmin(admin.ModelAdmin):
     list_display = ('id', 'usuario', 'calabaza', 'cantidad', 'fecha_venta', 'total')
     search_fields = ('usuario__nombre', 'calabaza__nombre')
     list_filter = ('fecha_venta',)
-    ordering = ('-fecha_venta',)  # Orden de venta más reciente a la más antigua
-    list_per_page = 20  # Paginación cada 20 ventas
+    ordering = ('id',)
+    readonly_fields = ('id', 'fecha_venta', 'total')
     fieldsets = (
-        ("Información de la Venta", {
-            'fields': ('usuario', 'calabaza', 'cantidad', 'total')
-        }),
-        ("Fecha", {
-            'fields': ('fecha_venta',),
-            'classes': ('collapse',),  # Colapsa esta sección
+        ('Detalles de la Venta', {
+            'fields': ('usuario', 'calabaza', 'cantidad', 'fecha_venta', 'total')
         }),
     )
-    readonly_fields = ('total', 'fecha_venta')  # Campos que no se pueden editar
