@@ -54,6 +54,30 @@ def usuario_logout(request):
     messages.info(request, "Has cerrado sesión con éxito.")
     return redirect('inicio')
 
+def lista_usuarios(request):
+    usuarios = Usuario.objects.all()  # Obtener todos los usuarios
+    return render(request, 'listar_usuarios.html', {'usuarios': usuarios})
+
+def editar_usuario(request, usuario_id):
+    usuario = get_object_or_404(Usuario, id=usuario_id)
+    
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Usuario actualizado con éxito.')
+            return redirect('usuarios')  # Redirige a la lista de usuarios
+    else:
+        form = UsuarioForm(instance=usuario)
+    
+    return render(request, 'editar_usuario.html', {'form': form, 'usuario': usuario})
+
+def eliminar_usuario(request, usuario_id):
+    usuario = get_object_or_404(Usuario, id=usuario_id)  # Obtener el usuario por ID
+    usuario.delete()  # Eliminar el usuario
+    messages.success(request, 'Usuario eliminado con éxito.')  # Mensaje de éxito
+    return redirect('usuarios')  # Redirige a la lista de usuarios después de eliminar
+
 def crear_calabaza(request):
     if request.method == 'POST':
         form = CalabazaForm(request.POST)
