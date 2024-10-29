@@ -59,6 +59,7 @@ def crear_calabaza(request):
         form = CalabazaForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, '¡Calabaza creada exitosamente!')
             return redirect('calabazas')
     else:
         form = CalabazaForm()
@@ -79,9 +80,16 @@ def editar_calabaza(request, calabaza_id):
         if form.is_valid():
             # Guardar los cambios
             form.save()
+            messages.success(request, '¡Calabaza actualizada exitosamente!')
             return redirect('calabazas')  # Cambia por la vista adecuada
     else:
         # Si es una solicitud GET, mostrar el formulario con los datos actuales
         form = CalabazaForm(instance=calabaza)
 
     return render(request, 'editar_calabaza.html', {'form': form, 'calabaza': calabaza})
+
+def eliminar_calabaza(request, calabaza_id):
+    calabaza = get_object_or_404(Calabaza, id=calabaza_id)  # Obtiene la calabaza o muestra 404 si no existe
+    calabaza.delete()  # Elimina la calabaza
+    messages.success(request, "Calabaza eliminada con éxito.")  # Mensaje de confirmación
+    return redirect('calabazas')  # Redirige a la lista de calabazas después de eliminar
