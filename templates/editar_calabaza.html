@@ -1,10 +1,54 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_styles %}
+<style>
+    .fondo-completo {
+        background-image: url('{% static "img/editar-calabaza.jpeg" %}');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .fondo-formulario {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 50px;
+        border-radius: 8px;
+        max-width: 500px;
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block title %}INACAPBAZA - Editar Calabaza{% endblock %}
 
 {% block content %}
-<h2>Editar Calabaza: {{ calabaza.nombre }}</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Guardar cambios</button>
-</form>
+<div class="fondo-completo">
+    <div class="fondo-formulario">
+        <div class="container mt-5">
+            <h2 class="text-center">Editar Calabaza: {{ calabaza.nombre }}</h2>
+            <div class="container mt-3">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="d-flex justify-content-center mt-4">
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
+                <!-- Botón de eliminar -->
+                <div class="d-flex justify-content-center mt-2">
+                    <a href="{% url 'eliminar_calabaza' calabaza.id %}" class="btn btn-danger"
+                        onclick="return confirm('¿Estás seguro de que deseas eliminar esta calabaza?');">
+                        Eliminar Calabaza
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
