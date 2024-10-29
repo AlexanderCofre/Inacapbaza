@@ -1,5 +1,6 @@
 # Inacapbaza
 Proyecto de Programación Back End (EVA 2)
+Nota: 7
 
 **Integrantes:**
 - Elías Alexander Briones Cofre
